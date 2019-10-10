@@ -30,5 +30,5 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/). Please see [t
 This repository is licensed under [The Unlicense](LICENSE.md).
 
 ### Acknowledgements
-* Thank you [@jaymine](https://github.com/jayminer) for explaining [how to calculate the hash of a block in bitcoin](https://medium.com/hackergirl/how-to-calculate-the-hash-of-a-block-in-bitcoin-8f6aebb0dc6d)
+* Thank you [@jaymine](https://github.com/jaymine) for explaining [how to calculate the hash of a block in bitcoin](https://medium.com/hackergirl/how-to-calculate-the-hash-of-a-block-in-bitcoin-8f6aebb0dc6d)
 * [Block Hashing Algorithm](https://en.bitcoin.it/wiki/Block_hashing_algorithm)
