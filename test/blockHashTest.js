@@ -6,7 +6,8 @@ const b390624 = 390624;
 const b490624 = 490624;
 
 describe('#blockHash()', function() {
-  this.timeout(10000);
+  this.timeout(20000);
+  this.slow(10000);
 
   context(`Testing Block Height ${b125552}`, function() {
     it('Should pass (version 1)', async () => {
