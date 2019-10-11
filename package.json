@@ -5,17 +5,30 @@
   "scripts": {
     "test": "mocha"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Mark Hary",
+  "license": "Unlicense",
   "description": "Useful blockchain related utility functions",
   "dependencies": {
-    "chai": "^4.2.0",
     "crypto": "^1.0.1",
-    "mocha": "^6.2.1",
     "node-fetch": "^2.6.0"
   },
   "directories": {
     "test": "test"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markhary/blockchain.git"
+  },
+  "keywords": [
+    "blockchain",
+    "utilities"
+  ],
+  "bugs": {
+    "url": "https://github.com/markhary/blockchain/issues"
+  },
+  "homepage": "https://github.com/markhary/blockchain#readme"
 }
