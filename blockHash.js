@@ -5,15 +5,15 @@ const crypto = require('crypto');
 async function fetchBlock(blockHeight) {
   let response = await fetch(`https://blockchain.info/block-height/${blockHeight}?format=json`);
   let data = await response.json();
-  return data;  
+  return data;
 }
 
 async function getBlockHash(blockHeight) {
   let response = await fetch(`https://blockchain.info/block-height/${blockHeight}?format=json`);
   let data = await response.json();
-  return data.blocks[0].hash;  
+  return data.blocks[0].hash;
 }
-  
+
 async function calculateHash(blockHeight) {
   const block = await fetchBlock(blockHeight);
   const block0 = block.blocks[0];
@@ -23,15 +23,34 @@ async function calculateHash(blockHeight) {
   const merkleRoot = block0.mrkl_root;
   const timestamp = block0.time.toString(16).padStart(8, '0');
   const difficultyBits = block0.bits.toString(16).padStart(8, '0');
-  const nonce = block0.nonce.toString(16).padStart(8, '0');
+  // treat nonce as an unsigned int
+  const nonce = (block0.nonce >>> 0).toString(16).padStart(8, '0');
 
   // Convert to Little Endian
-  const versionLE = version.match(/.{1,2}/g).reverse().join('');
-  const previousBlockLE = previousBlock.match(/.{1,2}/g).reverse().join('');
-  const merkleRootLE = merkleRoot.match(/.{1,2}/g).reverse().join('');
-  const timestampLE = timestamp.match(/.{1,2}/g).reverse().join('');
-  const difficultyBitsLE = difficultyBits.match(/.{1,2}/g).reverse().join('');
-  const nonceLE = nonce.match(/.{1,2}/g).reverse().join('');
+  const versionLE = version
+    .match(/.{1,2}/g)
+    .reverse()
+    .join('');
+  const previousBlockLE = previousBlock
+    .match(/.{1,2}/g)
+    .reverse()
+    .join('');
+  const merkleRootLE = merkleRoot
+    .match(/.{1,2}/g)
+    .reverse()
+    .join('');
+  const timestampLE = timestamp
+    .match(/.{1,2}/g)
+    .reverse()
+    .join('');
+  const difficultyBitsLE = difficultyBits
+    .match(/.{1,2}/g)
+    .reverse()
+    .join('');
+  const nonceLE = nonce
+    .match(/.{1,2}/g)
+    .reverse()
+    .join('');
 
   // From https://bitcoin.org/en/developer-reference
   // Size (B)     Field                Description
@@ -45,9 +64,12 @@ async function calculateHash(blockHeight) {
 
   const header = versionLE + previousBlockLE + merkleRootLE + timestampLE + difficultyBitsLE + nonceLE;
 
-  const firstPassHash = crypto.createHash('sha256').update(header,'hex').digest('hex');
-  const headerHashLE = crypto.createHash('sha256').update(firstPassHash,'hex').digest('hex');
-  const headerHash = headerHashLE.match(/.{1,2}/g).reverse().join('');
+  const firstPassHash = crypto.createHash('sha256').update(header, 'hex').digest('hex');
+  const headerHashLE = crypto.createHash('sha256').update(firstPassHash, 'hex').digest('hex');
+  const headerHash = headerHashLE
+    .match(/.{1,2}/g)
+    .reverse()
+    .join('');
 
   return headerHash;
 }
